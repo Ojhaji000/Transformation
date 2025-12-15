@@ -8,15 +8,14 @@ namespace Transformation
             (int row, int column) resultantMatrixSize = ( matrix1.Length, matrix2.GetLength(1));
             resultantMatrix = new float[resultantMatrixSize.row, resultantMatrixSize.column];
 
-            for(int i =0; i<; i++)
+            for(int i =0; i<matrix1.GetLength(0); i++)
             {
-                for (int j = 0; j<; j++)
+                for (int j = 0; j<matrix2.GetLength(1); j++)
                 {
                     for (int k = 0; k < matrix1.GetLength(1); k++)
                     {
-                        resultantMatrix[,] = matrix1[,k] * matrix2[k,];
+                        resultantMatrix[i,j] += matrix1[i,k] * matrix2[k,j];
 
-                        //resultantMatrix[i, j] += matrix1[i, k] * matrix2[k, j];
                     }
                 }
                 
