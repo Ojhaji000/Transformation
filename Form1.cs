@@ -47,12 +47,6 @@ namespace Transformation
 
         private static PointF rectangleOrigin = new PointF();//{ X = 0f, Y = 0f };
         private static PointF[] rectanglePoints = new PointF[4];
-        //{
-        //    rectangleOrigin,
-        //    new PointF(rectangleOrigin.X +150, rectangleOrigin.Y),
-        //    new PointF(rectangleOrigin.X +150, rectangleOrigin.Y+100),
-        //    new PointF(rectangleOrigin.X, rectangleOrigin.Y+100),
-        //};
         private PointF translationAmountInPoints = new PointF() { X = 0f, Y = 0f }; // translation in screen pixels
 
 
@@ -84,11 +78,10 @@ namespace Transformation
             );
             rectanglePoints= new PointF[4] {
                 rectangleOrigin,
-    new PointF(rectangleOrigin.X + 150, rectangleOrigin.Y),
-    new PointF(rectangleOrigin.X + 150, rectangleOrigin.Y + 100),
-    new PointF(rectangleOrigin.X, rectangleOrigin.Y + 100),
-}
-            ;
+                new PointF(rectangleOrigin.X + 150, rectangleOrigin.Y),
+                new PointF(rectangleOrigin.X + 150, rectangleOrigin.Y + 100),
+                new PointF(rectangleOrigin.X, rectangleOrigin.Y + 100),
+            };
 
         }
         private void CreateShapes(object? sender, PaintEventArgs e)
@@ -119,12 +112,6 @@ namespace Transformation
                     );
             }
             DrawHud(e.Graphics);
-            //float halfWidth = rectangleWidth / 2f;
-            //float halfHeight = rectangleHeight / 2f;
-            //rectanglePoints[0] = new PointF(rectangleCentre.X - halfWidth, rectangleCentre.Y - halfHeight); // Top-left
-            //rectanglePoints[1] = new PointF(rectangleCentre.X + halfWidth, rectangleCentre.Y - halfHeight); // Top-right
-            //rectanglePoints[2] = new PointF(rectangleCentre.X + halfWidth, rectangleCentre.Y + halfHeight); // Bottom-right
-            //rectanglePoints[3] = new PointF(rectangleCentre.X - halfWidth, rectangleCentre.Y + halfHeight); // Bottom-left
         }
 
 
@@ -250,37 +237,6 @@ namespace Transformation
             */
         }
 
-        //private void Form1_Paint(object? sender, PaintEventArgs e)
-        //{
-        //    Graphics g = e.Graphics;
-        //    g.SmoothingMode = SmoothingMode.AntiAlias;
-
-        //    // Apply the cumulative transform to the Graphics
-        //    using (Matrix m = CreateTransform())
-        //    {
-        //        g.Transform = m;
-
-        //        // Draw a sample shape in object coordinates (centered at origin)
-        //        using (Pen p = new(Color.DarkBlue, 2f / _scale)) // keep visual pen width roughly invariant to scale
-        //        using (Brush b = new SolidBrush(Color.FromArgb(180, Color.CornflowerBlue)))
-        //        {
-        //            // Example: a rounded rectangle / polygon centered at origin
-        //            RectangleF rect = new RectangleF(-75f, -50f, 150f, 100f);
-        //            g.FillRectangle(b, rect);
-        //            g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
-
-        //            // draw a small axis cross for orientation reference
-        //            using (Pen axis = new(Color.Red, 1f / _scale))
-        //            {
-        //                g.DrawLine(axis, -200f, 0f, 200f, 0f); // X axis
-        //                g.DrawLine(axis, 0f, -200f, 0f, 200f); // Y axis
-        //            }
-        //        }
-        //    }
-
-        //    // Optional: draw HUD in screen space (untransformed) to show current values
-        //    DrawHud(e.Graphics);
-        //}
 
         private void DrawHud(Graphics g)
         {
@@ -298,28 +254,8 @@ namespace Transformation
             }
         }
 
-        // Create the transformation matrix from the stored components.
-        // Order: translate -> rotate -> scale (this means scale is applied in object space after rotation).
-        //private Matrix CreateTransform()
-        //{
-        //    Matrix m = new();
-        //    // Apply translation in screen pixels
-        //    m.Translate(_translation.X, _translation.Y, MatrixOrder.Append);
-        //    // Apply rotation (degrees)
-        //    m.Rotate(_rotation, MatrixOrder.Append);
-        //    // Apply uniform scale
-        //    m.Scale(_scale, _scale, MatrixOrder.Append);
-        //    return m;
-        //}
-
         private void Translate(float[,] translationMatrix)
         {
-            //float[,] translationMatrix = new float[3, 3]
-            //{
-            //    { 1, 0, translateNum },
-            //    { 0, 1, translateNum },
-            //    { 0, 0, 1 }
-            //};
             float[,] resultVector = new float[3,1];
 
             for (int i = 0; i < rectanglePoints.Length; i++)
