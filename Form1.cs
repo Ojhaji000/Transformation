@@ -107,6 +107,15 @@ namespace Transformation
                     new PointF(drawingBoardCenter.X, drawingBoardCenter.Y + 200f)// vertical line bottom point
                     );
             }
+
+            using (Font drawFont = new Font("Arial", 10, FontStyle.Bold))
+            using (SolidBrush drawBrush = new SolidBrush(Color.Red))
+            {
+                g.DrawString("-x", drawFont, drawBrush, drawingBoardCenter.X - 200f, drawingBoardCenter.Y);
+                g.DrawString("x", drawFont, drawBrush, drawingBoardCenter.X + 200f, drawingBoardCenter.Y);
+                g.DrawString("y", drawFont, drawBrush, drawingBoardCenter.X, drawingBoardCenter.Y - 200f);
+                g.DrawString("-y", drawFont, drawBrush, drawingBoardCenter.X, drawingBoardCenter.Y + 200f);
+            }
             DrawHud(e.Graphics);
         }
 
