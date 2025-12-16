@@ -48,7 +48,7 @@ namespace Transformation
         private static PointF rectangleOrigin = new PointF();//{ X = 0f, Y = 0f };
         private static PointF[] rectanglePoints = new PointF[4];
         private PointF translationAmountInPoints = new PointF() { X = 0f, Y = 0f }; // translation in screen pixels
-
+        private PointF drawingBoardCenter = PointF.Empty;
 
         public Form1()
         {
@@ -67,7 +67,7 @@ namespace Transformation
             Size cs = ClientSize;
 
             // Example
-            PointF drawingBoardCenter = new PointF(
+            drawingBoardCenter = new PointF(
                 cs.Width / 2f,
                 cs.Height / 2f
             );
@@ -98,17 +98,13 @@ namespace Transformation
             // draw axis cross for orientation reference
             using (Pen axisPen = new(Color.Red, 1f / _scale))
             {
-                PointF rectangleCentre = new PointF(
-                    rectangleOrigin.X + width / 2f,
-                    rectangleOrigin.Y + height / 2f
+                g.DrawLine(axisPen,
+                    new PointF(drawingBoardCenter.X - 200f, drawingBoardCenter.Y),// horizontal line left point
+                    new PointF(drawingBoardCenter.X + 200f, drawingBoardCenter.Y)// horizontal line right point
                     );
                 g.DrawLine(axisPen,
-                    new PointF(rectangleCentre.X - 200f, rectangleCentre.Y),// horizontal line left point
-                    new PointF(rectangleCentre.X + 200f, rectangleCentre.Y)// horizontal line right point
-                    );
-                g.DrawLine(axisPen,
-                    new PointF(rectangleCentre.X, rectangleCentre.Y - 200f),// vertical line top point
-                    new PointF(rectangleCentre.X, rectangleCentre.Y + 200f)// vertical line bottom point
+                    new PointF(drawingBoardCenter.X, drawingBoardCenter.Y - 200f),// vertical line top point
+                    new PointF(drawingBoardCenter.X, drawingBoardCenter.Y + 200f)// vertical line bottom point
                     );
             }
             DrawHud(e.Graphics);
@@ -160,10 +156,9 @@ namespace Transformation
                 Translate(translationMatrix);
             }
             translationAmountInPoints = new PointF(
-                rectangleOrigin.X - rectanglePoints[0].X,
-                rectangleOrigin.Y - rectanglePoints[0].Y
-                ); 
-            //rectangleOrigin = rectanglePoints[0];
+                rectanglePoints[0].X - rectangleOrigin.X,
+                rectangleOrigin.Y - rectanglePoints[0].Y // reverse becasue screen y axis is inverted in WINFORMS
+                );
             Invalidate();
             /*
             int notches = e.Delta / 120;
