@@ -237,8 +237,8 @@ namespace Transformation
         {
             // Reset transform to draw UI overlay in screen coords
             g.ResetTransform();
-            string info = $"Scale: {_scale:F2}   Rotation: {_rotation:F1}°   Translation: {translationAmountInPoints.X:F0}, {translationAmountInPoints.Y:F0}\n" +
-                          "Wheel: • Ctrl=Zoom • Shift=Rotate • Alt=Pan X • None=Pan Y";
+            string info = $"Translation: {translationAmountInPoints.X:F0}, {translationAmountInPoints.Y:F0}\n" + // Scale: {_scale:F2}   Rotation: {_rotation:F1}°  
+                          "Wheel: • Alt=Pan X • None=Pan X";//  • Ctrl=Zoom • Shift=Rotate
             using (Brush b = new SolidBrush(Color.FromArgb(220, Color.Black)))
             using (Font f = new("Segoe UI", 9f))
             {
