@@ -79,8 +79,8 @@ namespace Transformation
                 cs.Width / 2f,
                 cs.Height / 2f
             );
+
             coordSys = new Transformation.CoordinateSystem(new PointF(drawingBoardCenter.X, drawingBoardCenter.Y), cs.Width, cs.Height);
-            //coordinateOrigin = );
 
             rectangleOrigin = new PointF(-75f, -50f);
             rectanglePoints= new PointF[4] {
@@ -97,15 +97,16 @@ namespace Transformation
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
             coordSys.Adjustment(ref rectanglePoints);
-            //float width = Math.Abs(rectanglePoints[1].X - rectanglePoints[0].X);
-            //float height = Math.Abs(rectanglePoints[2].Y - rectanglePoints[1].Y);
-            //RectangleF rect = new RectangleF(rectanglePoints[0].X,rectanglePoints[0].Y,width,height);
-            //g.DrawRectangle(new Pen(Color.DarkBlue, 2f), rect);
-            //g.FillRectangle(new SolidBrush(Color.FromArgb(180, Color.CornflowerBlue)), rect);
-            g.DrawLines(new Pen(Color.DarkBlue, 2f), rectanglePoints);
-            coordSys.Adjustment(ref trianglePoints);
-
-            g.DrawLines(new Pen(Color.DarkGreen, 2f), trianglePoints);
+            PointF[] rectangleClosedCurve = new PointF[5]
+            {
+                rectanglePoints[0],
+                rectanglePoints[1],
+                rectanglePoints[2],
+                rectanglePoints[3],
+                rectanglePoints[0]
+            };
+            g.DrawLines(new Pen(Color.DarkBlue, 2f), rectangleClosedCurve);
+            g.FillPolygon(new SolidBrush(Color.FromArgb(180, Color.CornflowerBlue)), rectangleClosedCurve);
 
             PointF[] xAxis = { new PointF(-200, 0), new PointF(200, 0) };
             PointF[] yAxis = { new PointF(0, -200), new PointF(0, 200) };
@@ -131,14 +132,9 @@ namespace Transformation
             coordSys.UndoAdjustment(ref rectanglePoints);
             coordSys.UndoAdjustment(ref xAxis);
             coordSys.UndoAdjustment(ref yAxis);
-            coordSys.UndoAdjustment(ref trianglePoints);
-
-
 
             DrawHud(e.Graphics);
         }
-
-
 
         private void Form1_MouseWheel(object? sender, MouseEventArgs e)
         {
@@ -267,7 +263,6 @@ namespace Transformation
             */
         }
 
-
         private void DrawHud(Graphics g)
         {
             // Reset transform to draw UI overlay in screen coords
@@ -299,17 +294,6 @@ namespace Transformation
                 Matrix.Multiply(translationMatrix, pointVector, out resultVector);
                 rectanglePoints[i] = new PointF(resultVector[0, 0], resultVector[1, 0]);
             }
-            for (int i = 0; i < trianglePoints.Length; i++)
-            {
-                float[,] pointVector = new float[3, 1]
-                {
-                    { trianglePoints[i].X },
-                    { trianglePoints[i].Y },
-                    { 1 }
-                };
-                Matrix.Multiply(translationMatrix, pointVector, out resultVector);
-                trianglePoints[i] = new PointF(resultVector[0, 0], resultVector[1, 0]);
-            }
         }
 
         private void Rotate(float[,] rotationMatrix)
@@ -324,15 +308,6 @@ namespace Transformation
                 };
                 Matrix.Multiply(rotationMatrix, pointVector, out resultVector);
                 rectanglePoints[i] = new PointF(resultVector[0, 0], resultVector[1, 0]);
-            }
-            for (int i = 0; i < trianglePoints.Length; i++)
-            {
-                float[,] pointVector = new float[2, 1]{
-                    { trianglePoints[i].X },
-                    { trianglePoints[i].Y }
-                };
-                Matrix.Multiply(rotationMatrix, pointVector, out resultVector);
-                trianglePoints[i] = new PointF(resultVector[0, 0], resultVector[1, 0]);
             }
         }
     }
