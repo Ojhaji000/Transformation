@@ -37,8 +37,8 @@ This project demonstrates **translation** and **rotation** of 2D shapes in a 2D 
 
 ## 📐 Mathematics Behind the Project
 - **Translation**:  
-  Represented as matrix multiplication with homogeneous coordinates:
-  The matrix A is
+  Represented as matrix multiplication with homogeneous coordinates:  
+  The matrix A is  
 $`
     \begin{bmatrix} 1 & 0 & t \\ 0 & 1 & t \\ 0 & 0 & 1 \end{bmatrix}
     \cdot
@@ -69,3 +69,4 @@ $`
 - Add scaling and reflection transformations.
 - Implement GUI visualization for interactive shape manipulation.
 - Extend to 3D transformations.
+
