@@ -10,7 +10,7 @@ This project demonstrates **translation** and **rotation** of 2D shapes in a 2D 
 
 ## 🚀 Getting Started
 1. Download or clone the repository.
-2. Open the project in **Visual Studio**.
+2. Open the project in **Visual Studio**, having winforms installed from the Visual Studio Installer.
 3. Press **F5** to build and run the application.
 
 ## 🧩 Code Structure
@@ -69,4 +69,5 @@ $`
 - Add scaling and reflection transformations.
 - Implement GUI visualization for interactive shape manipulation.
 - Extend to 3D transformations.
+
 
